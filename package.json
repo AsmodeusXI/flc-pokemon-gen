@@ -1,0 +1,17 @@
+{
+  "name": "flc-pokemon-gen",
+  "version": "0.1.0",
+  "description": "A module for Pokemon creation utility methods for FLC v2.0.",
+  "main": "dist/index",
+  "types": "dist/index",
+  "scripts": {
+    "prebuild": "rm -rf ./dist && mkdir dist",
+    "build": "tsc",
+    "publish": "npm run build && cp ./package.json ./dist/package.json"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^2.8.3"
+  }
+}
