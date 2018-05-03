@@ -8,8 +8,13 @@
     "transform": {
       ".(ts|tsx)": "./node_modules/ts-jest/preprocessor.js"
     },
-    "testMatch": ["**/*.spec.ts"],
-    "moduleFileExtensions": ["ts", "js"]
+    "testMatch": [
+      "**/*.spec.ts"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ]
   },
   "scripts": {
     "prebuild": "rm -rf ./dist && mkdir dist",
