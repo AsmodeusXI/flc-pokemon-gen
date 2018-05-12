@@ -20,7 +20,8 @@
     "prebuild": "rm -rf ./dist && mkdir dist",
     "build": "tsc",
     "publish": "npm run build && cp ./package.json ./dist/package.json",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "author": "",
   "license": "MIT",

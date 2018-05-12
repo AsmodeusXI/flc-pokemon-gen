@@ -4,8 +4,8 @@ export function getMPForType(type1: string, type2: string = null): number {
   return MP_BY_TYPE[type1][`${type2 ? type2 : type1}`];
 }
 
-enum MoveStatus {
-  BUFF,
+export enum MoveStatus {
+  BUFF = 1,
   CONTROL,
   DOT,
   CLEAN,
@@ -13,34 +13,65 @@ enum MoveStatus {
   ENEMY
 }
 
-interface PokemonMove {
+export interface PokemonMove {
   type: string,
   power?: number,
   status?: MoveStatus
 }
 
-interface Pokemon {
+export interface Pokemon {
   type1: string,
   type2: string,
   moves: Array<PokemonMove>
 }
 
-export function getMPForPokemonMove(move: PokemonMove, pokemon: Pokemon): number {
-  let moveMP = 6; // Starting value.
-  // In-Type Costs
+export function isMoveOutOfType(move: PokemonMove, pokemon: Pokemon): boolean {
+  return (move.type !== pokemon.type1 && move.type !== pokemon.type2);
+}
+
+export function getInTypeMP(move: PokemonMove, pokemon: Pokemon): number {
+  let inTypeMP = 6;
   if (move.power && !move.status) {
-    moveMP += move.power;
+    inTypeMP += move.power;
   } else {
-    moveMP += 10;
-    const moveStatuses = pokemon.moves.map((currentMoves) => {
-      if (currentMoves.status) return currentMoves.status;
-    });
+    inTypeMP += 10;
     const uniqueStatuses = [move.status];
-    moveStatuses.forEach((moveStatus) => {
-      if (!uniqueStatuses.includes(moveStatus)) uniqueStatuses.push(moveStatus);
+    pokemon.moves.forEach((move) => {
+      if (move.status && !uniqueStatuses.includes(move.status)) {
+        uniqueStatuses.push(move.status);
+      }
     });
-    moveMP += (uniqueStatuses.length - 1) * 10;
+    inTypeMP += (uniqueStatuses.length - 1) * 10;
   }
+  return inTypeMP;
+}
+
+export function getOutOfTypeMoveConstant(move: PokemonMove, pokemon: Pokemon): number {
+  // TODO: PLACEHOLDER
+  return 0;
+}
+
+export function getOutOfTypeMPPenalty(move: PokemonMove, pokemon: Pokemon): number {
+  const ootMoveIndex = pokemon.moves.filter((pokeMove) => isMoveOutOfType(pokeMove, pokemon)).length + 1;
+  let ootMoveCost = 5;
+  for (let i = 1; i <= ootMoveIndex; i++) {
+    ootMoveCost += i;
+  }
+  return ootMoveCost;
+}
+
+export function getOutOfTypeMP(move: PokemonMove, pokemon: Pokemon): number {
+  return getOutOfTypeMoveConstant(move, pokemon) + getOutOfTypeMPPenalty(move, pokemon);
+}
+
+export function getMoveMP(move: PokemonMove, pokemon: Pokemon): number {
+  // In-Type Costs
+  let moveMP = getInTypeMP(move, pokemon);
+
   // Out-Type Costs
+  if (isMoveOutOfType(move, pokemon)) {
+    moveMP += getOutOfTypeMP(move, pokemon);
+  }
+
   return moveMP;
 }
