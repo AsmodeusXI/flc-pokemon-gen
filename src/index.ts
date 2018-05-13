@@ -1,4 +1,5 @@
-import { MP_BY_TYPE } from './constants';
+import { MP_BY_TYPE } from './mp_by_type';
+import { OOT_CONSTANT } from './oot_constant';
 
 export function getMPForType(type1: string, type2: string = null): number {
   return MP_BY_TYPE[type1][`${type2 ? type2 : type1}`];
@@ -47,8 +48,7 @@ export function getInTypeMP(move: PokemonMove, pokemon: Pokemon): number {
 }
 
 export function getOutOfTypeMoveConstant(move: PokemonMove, pokemon: Pokemon): number {
-  // TODO: PLACEHOLDER
-  return 0;
+  return OOT_CONSTANT[pokemon.type1][pokemon.type2][move.type];
 }
 
 export function getOutOfTypeMPPenalty(move: PokemonMove, pokemon: Pokemon): number {

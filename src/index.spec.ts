@@ -76,15 +76,15 @@ test("getOutOfTypeMP fetches the right value for each new move", () => {
   const move4 = { type: 'Fire', power: 8 };
   const move5 = { type: 'Light', power: 9 };
 
-  expect(index.getOutOfTypeMP(move1, testPokemon)).toEqual(6);
+  expect(index.getOutOfTypeMP(move1, testPokemon)).toEqual(9);
   testPokemon.moves.push(move1);
-  expect(index.getOutOfTypeMP(move2, testPokemon)).toEqual(8);
+  expect(index.getOutOfTypeMP(move2, testPokemon)).toEqual(17);
   testPokemon.moves.push(move2);
-  expect(index.getOutOfTypeMP(move3, testPokemon)).toEqual(11);
+  expect(index.getOutOfTypeMP(move3, testPokemon)).toEqual(14);
   testPokemon.moves.push(move3);
-  expect(index.getOutOfTypeMP(move4, testPokemon)).toEqual(15);
+  expect(index.getOutOfTypeMP(move4, testPokemon)).toEqual(19);
   testPokemon.moves.push(move4);
-  expect(index.getOutOfTypeMP(move5, testPokemon)).toEqual(20);
+  expect(index.getOutOfTypeMP(move5, testPokemon)).toEqual(23);
 });
 
 test("getOutOfTypeMPPenalty increases as expected through each out of type move", () => {
@@ -109,4 +109,21 @@ test("getOutOfTypeMPPenalty increases as expected through each out of type move"
   expect(index.getOutOfTypeMPPenalty(move4, testPokemon)).toEqual(15);
   testPokemon.moves.push(move4);
   expect(index.getOutOfTypeMPPenalty(move5, testPokemon)).toEqual(20);
+});
+
+test("getOutOfTypeMoveConstant retrieves the expected values for the Pokemon/Move type combo", () => {
+  const poke1 = { type1: "Normal", type2: "Poison", moves: [] };
+  const poke2 = { type1: "Bug", type2: "Water", moves: [] };
+  const poke3 = { type1: "Electric", type2: "Grass", moves: [] };
+  const poke4 = { type1: "Light", type2: "Rock", moves: [] };
+
+  const move1 = { type: 'Dragon', power: 5 };
+  const move2 = { type: 'Steel', power: 6 };
+  const move3 = { type: 'Ground', power: 7 };
+  const move4 = { type: 'Fairy', power: 8 };
+
+  expect(index.getOutOfTypeMoveConstant(move1, poke1)).toEqual(3);
+  expect(index.getOutOfTypeMoveConstant(move2, poke2)).toEqual(2);
+  expect(index.getOutOfTypeMoveConstant(move3, poke3)).toEqual(7);
+  expect(index.getOutOfTypeMoveConstant(move4, poke4)).toEqual(2);
 });
