@@ -8,14 +8,20 @@
     "transform": {
       ".(ts|tsx)": "./node_modules/ts-jest/preprocessor.js"
     },
-    "testMatch": ["**/*.spec.ts"],
-    "moduleFileExtensions": ["ts", "js"]
+    "testMatch": [
+      "**/*.spec.ts"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ]
   },
   "scripts": {
     "prebuild": "rm -rf ./dist && mkdir dist",
     "build": "tsc",
     "publish": "npm run build && cp ./package.json ./dist/package.json",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "author": "",
   "license": "MIT",
@@ -24,5 +30,8 @@
     "jest": "^22.4.3",
     "ts-jest": "^22.4.4",
     "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "npm": "^6.0.0"
   }
 }
