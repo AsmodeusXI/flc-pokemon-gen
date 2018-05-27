@@ -1,0 +1,19 @@
+language: node_js
+node_js: node
+branches:
+  only: master
+install:
+- npm install
+before_script:
+- echo -e "Host $HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+script: npm run publish
+before_deploy:
+- cd dist
+deploy:
+  skip_cleanup: true
+  provider: npm
+  email: asmodeusxi@gmail.com
+  on:
+    branch: master
+  api_key:
+    secure: bysfmM5pGNWGJGALAgOXb+Ei3b587+YftvpjhvnysMioWK0vA2prZ1Z0HTsgPRR1fjxLyKrUdMrQ0ijRcnumw05RiSugl/pz+D15+yFcrhD7/geHPyAvvZWAB+oUCbcA0gwBKZ/Q82zhv9nWiP5/1iyWlmaVwUgKt54D+pAGyk2mHfmI139VbvnRi3Am3XR+dDShqH9zk6FgI/tRXceHCklc6dpCDpJG/GRuD1pdXB7zHtJR8fgMZ1bpjg6PmczIIGTXIdEHt/HZ2TMm55WFyUxnQ3ErgnLLIvvGJhVYv2apidAe8e1vbqULQkdKZ4+N+rr2GbVSuIxhsvbZh3UpZr9lIG33TOdzrFAXveGsS/stkoA4eUIOd9lwq7sYus1OUb60AVmeYy0phBDFPh+UTp3417I9WsCcPe54OYsf0RwxvFh+GvdNVi4AXt3lM647jk87XSNEy7W2ZvkEpeO/N7oHsK5RzDUViHxYA4j/5QVZyMBnRKX5mLSHRtRNhneAVGYOQNHhU+p3JfgZeyoBDdzpLhOASRkGLg2Y6c8YUjKHyGERPkwwC12P8DFiagKCuzaYvh8XSzi8LOc2z/aWUUDncZ/44EEjFEoMG/WRMyQZIqPhjTylFLKlPYDCLNoUJ+RI9XVxjTLWRC/seCwQMACViBxRmaZzQMVPzgAT+xQ=

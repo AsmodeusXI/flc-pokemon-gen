@@ -19,7 +19,7 @@
   "scripts": {
     "prebuild": "rm -rf ./dist && mkdir dist",
     "build": "tsc",
-    "publish": "npm run build && cp ./package.json ./dist/package.json",
+    "publish": "npm run test && npm run build && cp ./package.json ./dist/package.json",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },
@@ -30,8 +30,5 @@
     "jest": "^22.4.3",
     "ts-jest": "^22.4.4",
     "typescript": "^2.8.3"
-  },
-  "dependencies": {
-    "npm": "^6.0.0"
   }
 }
