@@ -48,6 +48,9 @@ export function getInTypeMP(move: PokemonMove, pokemon: Pokemon): number {
 }
 
 export function getOutOfTypeMoveConstant(move: PokemonMove, pokemon: Pokemon): number {
+  if (!pokemon.type1) throw new Error('Pokemon Primary Type is required!');
+  if (!pokemon.type2) pokemon.type2 = pokemon.type1;
+
   return OOT_CONSTANT[pokemon.type1][pokemon.type2][move.type];
 }
 
